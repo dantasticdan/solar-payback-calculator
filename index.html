@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compound Interest Calculator</title>
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+</head>
+<body>
+    <section class="container">
+        <div class="calculator">
+            <div class="heading">
+                <h3>Solar Payback Calculator</h3>
+                <small>Brought to you by your Friendly Neighborhood Solar Club...</small>
+            </div>
+            <div class="heading">
+                <h4><br> Solar Club LO: 10.75 ¢/kWh </h4>
+                <h4> Solar Club HI: 30.00 ¢/kWh</h4>
+            </div>
+            <form class="compound-form">
+                <div class="input-group">
+                    <label for="initialamount">System Cost ($)</label>
+                    <input type="number" id="systemcost" />
+                </div>
+                <div class="input-group">
+                    <label for="years">System Size (kW)</label>
+                    <input type="number" id="systemsize" />
+                </div>
+                <div class="input-group">
+                    <label for="rates">Annual Production (kWh)</label>
+                    <input type="number" id="annualprod" />
+                </div>
+                <div class="input-group">
+                    <label for="rates">Yearly Increase in Electricity Price (%)</label>
+                    <select id="elecprice">
+                        <option value="0.02">2%</option>
+                        <option value="0.03">3%</option>
+                        <option value="0.04">4%</option>
+                        <option value="0.05">5%</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <button>Calculate</button>
+                </div>
+            </form>
+        </div>
+        <div class="results">
+            <h3 id="message"></h3>
+            <canvas id="data-set"></canvas>
+        </div>
+    </section>
+    <section class="container">
+        <div class="calculator">
+            <div class="heading">
+                <h3>System Payback:</h3>
+                <h3><br>Lifetime ROI:</h3>
+                <h3><br>Annualized ROR:</h3>
+                <h3><br>Calculations:</h3>    
+                <br><body>
+                    <b>Export Value:</b> [Annual Production (kWh) x Power Rate ($/kWh)] + D&T Savings
+                    <br> 
+                    <br>
+                    <b><br>Cumulative ROI:</b> Yearly Running Sum of Export Value </b>
+                    <b><br>Payback Progress:</b> [System Cost] - [Cumulative ROI] </b>
+                </body>
+            </div>
+        </div>    
+        <div class="calculator">
+            <div class="heading">
+                <table class="table" id="myTable">
+                    <thead>
+                        <tr>
+                         <th>Year</th>
+                         <th>Export Value</th>
+                         <th>Cumulative ROI</th>
+                         <th>Payback Progress</th> 
+                        </tr>
+                    </thead>
+                    <tbody id="testBody"></tbody>
+                  </table>
+            </div>
+        </div> 
+    </section>    
+    <script src="js/app.js"></script>
+</body>
+</html>
