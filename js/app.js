@@ -29,6 +29,7 @@ function calculateGrowth(e) {
     let hi = 0.3;
     let lo = 0.1075;
     let cusavings = 0;
+    let payback = 0;
     table.innerHTML = "";
 
 
@@ -40,14 +41,15 @@ function calculateGrowth(e) {
 
         let savings = annualprod * lo;
         console.log(elecincrease);
-        
+        payback = cusavings-systemcost;
 
         //calculate annual savings
         for(let i = 1; i <= 25; i++) {
             data.push(toDecimal(savings, 2));
-            dataline.push(i*100);
             console.log(data, dataline);
             cusavings = cusavings + savings;
+            //dataline.push(i*100);
+            dataline.push(cusavings-systemcost);
             labels.push("Year " + i);
             //drawTable();
             //growth = toDecimal(final, 2);
@@ -69,9 +71,10 @@ function calculateGrowth(e) {
                 payback.innerHTML = "$" +numberWithCommas((cusavings-systemcost).toFixed(2));  //+((systemcost*-1)-roi);
 
             savings = savings * (elecincrease + 1);
+            //payback = cusavings-systemcost;
             
         }
-        //
+
         //message.innerText = `You will have this amount ${growth} after ${systemsize} years`;
         drawGraph();
     } catch (error) {
@@ -79,15 +82,12 @@ function calculateGrowth(e) {
     }
 }
 
-//function drawTable() {
- 
-//}
-
 function drawGraph() {
     bar.destroy();
     bar = new Chart(context, {
         //type: 'bar',
         data: {
+            labels,
             datasets: [
             {
                 type: 'bar',
@@ -103,47 +103,29 @@ function drawGraph() {
                 type: 'line',
                 label: "Cumulative ROI",
                 data: dataline,
-                fill: true,
+                fill: false,
                 backgroundColor: "rgba(81, 40, 79, 0.5)",
                 borderWidth: 3,
                 order: 0,
                 yAxisID: 'y1',
             }
         ],
-            labels
+            
         },
         options: {
-            responsive: true,
-            borderRadius: 7,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-              },
-              stacked: false,
-              plugins: {
-                title: {
-                  display: true,
-                  text: 'Chart.js Line Chart - Multi Axis'
-                }
-            },
-          },
-        scales: {
-            y: {
-              type: 'linear',
-              display: true,
-              position: 'left',
-            },
-            y1: {
-              type: 'linear',
-              display: true,
-              position: 'right',
-
-                // grid line settings
-                grid: {
-                drawOnChartArea: false, // only want the grid lines for one axis to show up
+            scales: {
+                y: { 
+                type: 'linear',
+                display: true,
+                position: 'left',
                 },
-            },
-        },
+                y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+              },
+         },
+        }
     });
 }
 
